@@ -1,5 +1,6 @@
-package com.example.agrocalculator;
+package com.example.agrocalculator.controllers;
 
+import com.example.agrocalculator.model.RemovalOfNutrients;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;

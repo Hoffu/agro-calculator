@@ -1,4 +1,4 @@
-package com.example.agrocalculator;
+package com.example.agrocalculator.model;
 
 import java.util.HashMap;
 import java.util.Map;

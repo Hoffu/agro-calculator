@@ -1,4 +1,4 @@
-package com.example.agrocalculator;
+package com.example.agrocalculator.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
