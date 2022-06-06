@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agrocalculator.RegistrationPageController">
+   <center>
+      <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <VBox>
+            <FlowPane.margin>
+               <Insets left="10.0" right="10.0" top="10.0" />
+            </FlowPane.margin>
+            <Label text="Заполните, пожалуйста, форму регистрации">
+               <graphic>
+                  <FontIcon iconLiteral="ci-request-quote:22" />
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="emailInput" maxWidth="200.0" promptText="Адрес электронной почты" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="phoneInput" layoutX="10.0" layoutY="41.0" maxWidth="200.0" promptText="Номер телефона" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="nameInput" layoutX="10.0" layoutY="76.0" maxWidth="200.0" promptText="Имя" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="passwordInput" layoutX="10.0" layoutY="111.0" maxWidth="200.0" promptText="Пароль" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="passwordConfirmationInput" layoutX="10.0" layoutY="146.0" maxWidth="200.0" promptText="Повторите пароль" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#registrationCompleted" styleClass="btn, btn-default" text="Зарегистрироваться">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </VBox>
+      </FlowPane>
+   </center>
+</BorderPane>

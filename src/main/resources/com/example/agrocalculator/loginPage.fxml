@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agrocalculator.LoginPageController">
+   <center>
+      <FlowPane BorderPane.alignment="CENTER">
+         <VBox>
+            <FlowPane.margin>
+               <Insets left="10.0" right="10.0" top="10.0"/>
+            </FlowPane.margin>
+            <Label text="Пожалуйста, войдите в систему">
+               <graphic>
+                  <FontIcon iconLiteral="ci-login:22"/>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="15.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="loginEntry" maxWidth="200.0" promptText="Электронная почта"
+                       styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="passwordEntry" layoutX="10.0" layoutY="42.0" maxWidth="200.0" promptText="Пароль"
+                       styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </TextField>
+            <Button layoutX="10.0" layoutY="144.0" mnemonicParsing="false" onAction="#login"
+                    styleClass="btn, btn-default" text="Войти">
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </Button>
+            <Label layoutX="10.0" layoutY="10.0" text="Еще не зарегистрированы?">
+               <graphic>
+                  <FontIcon iconLiteral="ci-registration:22"/>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="15.0"/>
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#registration" styleClass="btn, btn-default"
+                    text="Зарегистрироваться">
+               <VBox.margin>
+                  <Insets top="10.0"/>
+               </VBox.margin>
+            </Button>
+         </VBox>
+      </FlowPane>
+   </center>
+</BorderPane>
