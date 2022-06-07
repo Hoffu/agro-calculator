@@ -21,27 +21,27 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="emailInput" maxWidth="200.0" promptText="Адрес электронной почты" styleClass="btn, btn-default">
+            <TextField fx:id="emailInput" maxWidth="250.0" promptText="Адрес электронной почты" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="phoneInput" layoutX="10.0" layoutY="41.0" maxWidth="200.0" promptText="Номер телефона" styleClass="btn, btn-default">
+            <TextField fx:id="phoneInput" layoutX="10.0" layoutY="41.0" maxWidth="250.0" promptText="Номер телефона (в формате 89997772233)" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="nameInput" layoutX="10.0" layoutY="76.0" maxWidth="200.0" promptText="Имя" styleClass="btn, btn-default">
+            <TextField fx:id="nameInput" layoutX="10.0" layoutY="76.0" maxWidth="250.0" promptText="Имя" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="passwordInput" layoutX="10.0" layoutY="111.0" maxWidth="200.0" promptText="Пароль" styleClass="btn, btn-default">
+            <TextField fx:id="passwordInput" layoutX="10.0" layoutY="111.0" maxWidth="250.0" promptText="Пароль (не менее 8 символов)" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="passwordConfirmationInput" layoutX="10.0" layoutY="146.0" maxWidth="200.0" promptText="Повторите пароль" styleClass="btn, btn-default">
+            <TextField fx:id="passwordConfirmationInput" layoutX="10.0" layoutY="146.0" maxWidth="250.0" promptText="Повторите пароль" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

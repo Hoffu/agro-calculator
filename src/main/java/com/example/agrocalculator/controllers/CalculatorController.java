@@ -1,5 +1,6 @@
 package com.example.agrocalculator.controllers;
 
+import com.example.agrocalculator.model.DialogWindow;
 import com.example.agrocalculator.model.RemovalOfNutrients;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ChoiceBox;
@@ -8,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.example.agrocalculator.MainApplication.setScene;
 
@@ -47,49 +49,39 @@ public class CalculatorController {
     }
 
     public void calculate(ActionEvent actionEvent) {
-        double fertilizerDoseOfNitrogen = customRound(calculateNutrientLeaching(0) -
-                calculateSupply(nitrogenInput.getText().replaceAll(",", ".")) * 0.60
-        );
-        double fertilizerDoseOfPhosphorus = customRound(calculateNutrientLeaching(1) -
-                calculateSupply(phosphorusInput.getText().replaceAll(",", ".")) * 0.40
-        );
-        double fertilizerDoseOfPotassium = customRound(calculateNutrientLeaching(2) -
-                calculateSupply(potassiumInput.getText().replaceAll(",", ".")) * 0.70
-        );
-        answerLabel.setText(
-                "Для указанного поля, с планируемой урожайностью — " +
-                productivityInput.getText().replaceAll(",", ".") +
-                " тонн с гектара,\nрекомендованная норма удобрений составляет:\n" +
-                "Азота не менее " + fertilizerDoseOfNitrogen + " кг/га,\n" +
-                "фосфора не менее " + fertilizerDoseOfPhosphorus + " кг/га,\n" +
-                "калия не менее " + fertilizerDoseOfPotassium + " кг/га."
-        );
-        answerWrapper.setVisible(true);
+        TextField[] inputs = {
+                productivityInput, areaInput,
+                plowingDepthInput, soilDensityInput,
+                nitrogenInput, phosphorusInput,
+                potassiumInput
+        };
+        ArrayList<Double> numbers = extractNumbers(inputs);
+        if(numbers.size() == inputs.length) {
+            double soil = calculateSoil(numbers.get(1) * 10000, numbers.get(2), numbers.get(3));
+            double nitrogen = customRound(calculateNutrientLeaching(0, numbers.get(0)) -
+                    (numbers.get(4) * soil * Math.pow(10, -6) * 0.60));
+            double phosphorus = customRound(calculateNutrientLeaching(1, numbers.get(0)) -
+                    (numbers.get(5) * soil * Math.pow(10, -6) * 0.40));
+            double potassium = customRound(calculateNutrientLeaching(2, numbers.get(0)) -
+                    (numbers.get(6) * soil * Math.pow(10, -6) * 0.70));
+
+            answerLabel.setText(
+                    "Для указанного поля, с планируемой урожайностью — " + productivityInput.getText() +
+                            " тонн с гектара,\nрекомендованная норма удобрений составляет:\n" +
+                            "Азота не менее " + (nitrogen < 0 ? 0 : nitrogen) + " кг/га,\n" +
+                            "фосфора не менее " + (phosphorus < 0 ? 0 : phosphorus) + " кг/га,\n" +
+                            "калия не менее " + (potassium < 0 ? 0 : potassium) + " кг/га."
+            );
+            answerWrapper.setVisible(true);
+        } else {
+            new DialogWindow("CalculationError").showDialog();
+        }
     }
 
-    private double calculateNutrientLeaching(int index) {
-        double nutrientLeaching = 0;
-        try {
-            double productivity = Double.parseDouble(productivityInput
-                    .getText().replaceAll(",", "."));
-            double norm = new RemovalOfNutrients(culturesList)
-                    .getRemoval(cultureSelector.getValue(), index);
-            nutrientLeaching = productivity * norm;
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-        }
-        return nutrientLeaching;
-    }
-
-    private double calculateSupply(String inputText) {
-        double supply = 0;
-        try {
-            double contain = Double.parseDouble(inputText);
-            supply = contain * calculateSoil() * Math.pow(10, -6);
-        } catch (NumberFormatException e) {
-            System.out.println(e);
-        }
-        return supply;
+    private double calculateNutrientLeaching(int index, double productivity) {
+        double norm = new RemovalOfNutrients(culturesList)
+                .getRemoval(cultureSelector.getValue(), index);
+        return productivity * norm;
     }
 
     private double customRound(double n) {
@@ -98,17 +90,20 @@ public class CalculatorController {
         return (double) result / 100;
     }
 
-    private double calculateSoil() {
-        double soil = 0;
+    private ArrayList<Double> extractNumbers(TextField[] inputs) {
+        ArrayList<Double> numbers = new ArrayList<>();
         try {
-            double area = Double.parseDouble(areaInput.getText().replaceAll(",", ".")) * 10000;
-            double plowingDepth = Double.parseDouble(plowingDepthInput.getText().replaceAll(",", "."));
-            double soilDensity = Double.parseDouble(soilDensityInput.getText().replaceAll(",", "."));
-            soil = customRound(area * plowingDepth * soilDensity * 1000);
-        } catch (NumberFormatException e) {
-            System.out.println(e);
+            for (TextField input : inputs) {
+                numbers.add(Double.parseDouble(input.getText().replaceAll(",", ".")));
+            }
+        } catch (NumberFormatException ignored) {
+
         }
-        return soil;
+        return numbers;
+    }
+
+    private double calculateSoil(double area, double plowingDepth, double soilDensity) {
+        return customRound(area * plowingDepth * soilDensity * 1000);
     }
 
     public void goToProfile(ActionEvent actionEvent) throws IOException {

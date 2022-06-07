@@ -1,6 +1,7 @@
 package com.example.agrocalculator.controllers;
 
 import com.example.agrocalculator.database.DataBaseConnection;
+import com.example.agrocalculator.model.DialogWindow;
 import com.example.agrocalculator.model.User;
 import com.kosprov.jargon2.api.Jargon2;
 import javafx.event.ActionEvent;
@@ -11,7 +12,6 @@ import java.util.Objects;
 
 import static com.example.agrocalculator.MainApplication.setScene;
 import static com.kosprov.jargon2.api.Jargon2.jargon2Hasher;
-import static com.kosprov.jargon2.api.Jargon2.jargon2Verifier;
 
 public class RegistrationPageController {
     public TextField emailInput;
@@ -26,7 +26,7 @@ public class RegistrationPageController {
                 passwordInput.getText().length() < 8 ||
                 !Objects.equals(passwordInput.getText(), passwordConfirmationInput.getText())) {
 
-            System.out.println("Не правильно заполнены поля");
+            new DialogWindow("RegistrationError").showDialog();
         } else {
             byte[] password = passwordInput.getText().getBytes();
             Jargon2.Hasher hasher = jargon2Hasher()
@@ -40,15 +40,8 @@ public class RegistrationPageController {
             String encodedHash = hasher.password(password).encodedHash();
             User user = new User(emailInput.getText(), phoneInput.getText(), nameInput.getText(), encodedHash);
             new DataBaseConnection().addUser(user);
-
-            System.out.printf("Hash: %s%n", encodedHash);
-
-            Jargon2.Verifier verifier = jargon2Verifier();
-            boolean matches = verifier.hash(encodedHash).password(passwordInput.getText().getBytes()).verifyEncoded();
-            System.out.printf("Matches: %s%n", matches);
-
             try {
-                setScene("calculator-view.fxml");
+                setScene("loginPage.fxml");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
