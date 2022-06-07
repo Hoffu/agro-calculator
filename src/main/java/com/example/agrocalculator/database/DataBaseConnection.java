@@ -77,16 +77,9 @@ public class DataBaseConnection {
             pstmt.setInt(1, calculation.getUserId());
             pstmt.setString(2, calculation.getDate());
             pstmt.setString(3, calculation.getCulture());
-            pstmt.setDouble(4, calculation.getProductivity());
-            pstmt.setDouble(5, calculation.getArea());
-            pstmt.setDouble(6, calculation.getPlowingDepth());
-            pstmt.setDouble(7, calculation.getSoilDensity());
-            pstmt.setDouble(8, calculation.getNitrogen());
-            pstmt.setDouble(9, calculation.getPhosphorus());
-            pstmt.setDouble(10, calculation.getPotassium());
-            pstmt.setDouble(11, calculation.getNitrogenFertilizer());
-            pstmt.setDouble(12, calculation.getPhosphorusFertilizer());
-            pstmt.setDouble(13, calculation.getPotassiumFertilizer());
+            for(int i = 0; i < calculation.getCalculations().length; i++) {
+                pstmt.setDouble(i + 4, calculation.getCalculations()[i]);
+            }
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -103,12 +96,15 @@ public class DataBaseConnection {
             while (rs.next()) {
                 calculations.add(new Calculation(
                         rs.getInt("userId"), rs.getString("date"),
-                        rs.getString("culture"), rs.getDouble("productivity"),
-                        rs.getDouble("area"), rs.getDouble("plowingDepth"),
-                        rs.getDouble("soilDensity"), rs.getDouble("nitrogen"),
-                        rs.getDouble("phosphorus"), rs.getDouble("potassium"),
-                        rs.getDouble("nitrogenFertilizer"), rs.getDouble("phosphorusFertilizer"),
-                        rs.getDouble("potassiumFertilizer")
+                        rs.getString("culture"), new double[]{
+                            rs.getDouble("productivity"),
+                            rs.getDouble("area"), rs.getDouble("plowingDepth"),
+                            rs.getDouble("soilDensity"), rs.getDouble("nitrogen"),
+                            rs.getDouble("phosphorus"), rs.getDouble("potassium"),
+                            rs.getDouble("nitrogenFertilizer"),
+                            rs.getDouble("phosphorusFertilizer"),
+                            rs.getDouble("potassiumFertilizer")
+                        }
                 ));
             }
         } catch (SQLException e) {

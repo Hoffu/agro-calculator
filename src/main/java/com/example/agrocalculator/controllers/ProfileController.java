@@ -81,18 +81,18 @@ public class ProfileController {
     private void setValues(Calculation calculation) {
         culture.setText("Культура: " + calculation.getCulture());
         productivity.setText("Планируемая урожаемость: "
-                + calculation.getProductivity() + " тонн с гектара");
-        area.setText("Площадт участка: " + calculation.getArea() + " га");
-        plowingDepth.setText("Глубина вспашки: " + calculation.getPlowingDepth() + " м");
-        soilDensity.setText("Плотность почвы: " + calculation.getSoilDensity() + " кг/дм3");
-        nitrogen.setText("Содержание азота: " + calculation.getNitrogen() + " мг/кг");
-        phosphorus.setText("Содержание фосфора: " + calculation.getPhosphorus() + " мг/кг");
-        potassium.setText("Содержания калия: " + calculation.getPotassium() + " мг/кг");
+                + calculation.getCalculations()[0] + " тонн с гектара");
+        area.setText("Площадт участка: " + calculation.getCalculations()[1] + " га");
+        plowingDepth.setText("Глубина вспашки: " + calculation.getCalculations()[2] + " м");
+        soilDensity.setText("Плотность почвы: " + calculation.getCalculations()[3] + " кг/дм3");
+        nitrogen.setText("Содержание азота: " + calculation.getCalculations()[4] + " мг/кг");
+        phosphorus.setText("Содержание фосфора: " + calculation.getCalculations()[5] + " мг/кг");
+        potassium.setText("Содержания калия: " + calculation.getCalculations()[6] + " мг/кг");
         nitrogenFertilizer.setText("Норма азота составляет не менее: "
-                + calculation.getNitrogenFertilizer() + " кг/га");
+                + calculation.getCalculations()[7] + " кг/га");
         phosphorusFertilizer.setText("Норма фосфора составляет не менее: "
-                + calculation.getPhosphorusFertilizer() + " кг/га");
+                + calculation.getCalculations()[8] + " кг/га");
         potassiumFertilizer.setText("Норма калия составляет не менее: "
-                + calculation.getPotassiumFertilizer() + " кг/га");
+                + calculation.getCalculations()[9] + " кг/га");
     }
 }

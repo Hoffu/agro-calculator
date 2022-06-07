@@ -69,24 +69,27 @@ public class CalculatorController {
                     (numbers.get(5) * soil * Math.pow(10, -6) * 0.40));
             double potassium = customRound(calculateNutrientLeaching(2, numbers.get(0)) -
                     (numbers.get(6) * soil * Math.pow(10, -6) * 0.70));
-
+            nitrogen = nitrogen < 0 ? 0 : nitrogen;
+            phosphorus = phosphorus < 0 ? 0 : phosphorus;
+            potassium = potassium < 0 ? 0 : potassium;
             answerLabel.setText(
                     "Для указанного поля, с планируемой урожайностью — " + productivityInput.getText() +
                             " тонн с гектара,\nрекомендованная норма удобрений составляет:\n" +
-                            "Азота не менее " + (nitrogen < 0 ? 0 : nitrogen) + " кг/га,\n" +
-                            "фосфора не менее " + (phosphorus < 0 ? 0 : phosphorus) + " кг/га,\n" +
-                            "калия не менее " + (potassium < 0 ? 0 : potassium) + " кг/га."
+                            "Азота не менее " + nitrogen + " кг/га,\n" +
+                            "фосфора не менее " + phosphorus + " кг/га,\n" +
+                            "калия не менее " + potassium + " кг/га."
             );
             answerWrapper.setVisible(true);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formatDateTime = LocalDateTime.now().format(formatter);
 
+            numbers.add(nitrogen);
+            numbers.add(phosphorus);
+            numbers.add(potassium);
             new DataBaseConnection().addCalculation(new Calculation(
                     currentUserId, formatDateTime, cultureSelector.getValue(),
-                    numbers.get(0), numbers.get(1), numbers.get(2), numbers.get(3),
-                    numbers.get(4), numbers.get(5), numbers.get(6), (nitrogen < 0 ? 0 : nitrogen),
-                    (phosphorus < 0 ? 0 : phosphorus), (potassium < 0 ? 0 : potassium)
+                    numbers.stream().mapToDouble(d -> d).toArray()
             ));
         } else {
             new DialogWindow("CalculationError").showDialog();

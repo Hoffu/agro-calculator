@@ -56,7 +56,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox fx:id="previousCalculations" prefWidth="150.0">
+            <ChoiceBox fx:id="previousCalculations" styleClass="btn, btn-default" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
