@@ -1,5 +1,7 @@
 package com.example.agrocalculator.controllers;
 
+import com.example.agrocalculator.database.DataBaseConnection;
+import com.example.agrocalculator.model.Calculation;
 import com.example.agrocalculator.model.DialogWindow;
 import com.example.agrocalculator.model.RemovalOfNutrients;
 import javafx.event.ActionEvent;
@@ -9,9 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static com.example.agrocalculator.MainApplication.setScene;
+import static com.example.agrocalculator.database.DataBaseConnection.currentUserId;
 
 public class CalculatorController {
     public Label answerLabel;
@@ -73,6 +78,16 @@ public class CalculatorController {
                             "калия не менее " + (potassium < 0 ? 0 : potassium) + " кг/га."
             );
             answerWrapper.setVisible(true);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formatDateTime = LocalDateTime.now().format(formatter);
+
+            new DataBaseConnection().addCalculation(new Calculation(
+                    currentUserId, formatDateTime, cultureSelector.getValue(),
+                    numbers.get(0), numbers.get(1), numbers.get(2), numbers.get(3),
+                    numbers.get(4), numbers.get(5), numbers.get(6), (nitrogen < 0 ? 0 : nitrogen),
+                    (phosphorus < 0 ? 0 : phosphorus), (potassium < 0 ? 0 : potassium)
+            ));
         } else {
             new DialogWindow("CalculationError").showDialog();
         }
