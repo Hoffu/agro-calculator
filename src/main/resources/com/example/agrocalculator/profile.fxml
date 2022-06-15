@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agrocalculator.controllers.ProfileController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="633.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agrocalculator.controllers.ProfileController">
    <center>
       <FlowPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <VBox>
@@ -56,25 +56,22 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox fx:id="previousCalculations" styleClass="btn, btn-default" prefWidth="150.0">
+            <ChoiceBox fx:id="previousCalculations" prefWidth="150.0" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </ChoiceBox>
+            <TextField fx:id="filterInput" prefWidth="215.0" promptText="Отфильтровать по культуре" styleClass="btn, btn-default">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TextField>
             <Label fx:id="culture" layoutX="10.0" layoutY="189.0" text="Культура: ">
                <font>
                   <Font size="14.0" />
                </font>
                <VBox.margin>
                   <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="productivity" layoutX="10.0" layoutY="42.0" text="Планируемая урожайность: ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="5.0" />
                </VBox.margin>
             </Label>
             <Label fx:id="area" layoutX="10.0" layoutY="67.0" text="Площадь участка: ">
@@ -94,6 +91,14 @@
                </VBox.margin>
             </Label>
             <Label fx:id="soilDensity" layoutX="10.0" layoutY="179.0" text="Плотность почвы: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="productivity" layoutX="10.0" layoutY="42.0" text="Планируемая урожайность: ">
                <font>
                   <Font size="14.0" />
                </font>
@@ -125,7 +130,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="nitrogenFertilizer" layoutX="10.0" layoutY="314.0" text="Содержание азота: ">
+            <Label fx:id="nitrogenFertilizer" layoutX="10.0" layoutY="314.0" text="Содержание удобрений в виде азота: ">
                <font>
                   <Font size="14.0" />
                </font>
@@ -133,7 +138,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="phosphorusFertilizer" layoutX="10.0" layoutY="339.0" text="Содержание фосфора: ">
+            <Label fx:id="phosphorusFertilizer" layoutX="10.0" layoutY="339.0" text="Содержание удобрений в виде фосфора: ">
                <font>
                   <Font size="14.0" />
                </font>
@@ -141,7 +146,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="potassiumFertilizer" layoutX="10.0" layoutY="364.0" text="Содержание калия: ">
+            <Label fx:id="potassiumFertilizer" layoutX="10.0" layoutY="364.0" text="Содержание удобрений в виде калия: ">
                <font>
                   <Font size="14.0" />
                </font>
@@ -149,19 +154,32 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveInPDF" styleClass="btn, btn-default" text="Сохранить в PDF">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="printButton" mnemonicParsing="false" onAction="#print" styleClass="btn, btn-default" text="Распечатать">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
          </VBox>
       </FlowPane>
    </center>
    <bottom>
-      <FlowPane BorderPane.alignment="CENTER">
+      <FlowPane rowValignment="TOP" BorderPane.alignment="CENTER">
          <Button mnemonicParsing="false" onAction="#backToCalc" styleClass="btn, btn-default" text="Вернуться в калькулятор">
             <graphic>
                <FontIcon iconLiteral="ci-arrow-left:22" />
             </graphic>
             <FlowPane.margin>
-               <Insets bottom="10.0" left="10.0" right="10.0" />
+               <Insets />
             </FlowPane.margin>
          </Button>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </BorderPane.margin>
       </FlowPane>
    </bottom>
 </BorderPane>

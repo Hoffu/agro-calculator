@@ -97,14 +97,14 @@ public class DataBaseConnection {
                 calculations.add(new Calculation(
                         rs.getInt("userId"), rs.getString("date"),
                         rs.getString("culture"), new double[]{
-                            rs.getDouble("productivity"),
-                            rs.getDouble("area"), rs.getDouble("plowingDepth"),
-                            rs.getDouble("soilDensity"), rs.getDouble("nitrogen"),
-                            rs.getDouble("phosphorus"), rs.getDouble("potassium"),
-                            rs.getDouble("nitrogenFertilizer"),
-                            rs.getDouble("phosphorusFertilizer"),
-                            rs.getDouble("potassiumFertilizer")
-                        }
+                        rs.getDouble("productivity"),
+                        rs.getDouble("area"), rs.getDouble("plowingDepth"),
+                        rs.getDouble("soilDensity"), rs.getDouble("nitrogen"),
+                        rs.getDouble("phosphorus"), rs.getDouble("potassium"),
+                        rs.getDouble("nitrogenFertilizer"),
+                        rs.getDouble("phosphorusFertilizer"),
+                        rs.getDouble("potassiumFertilizer")
+                }
                 ));
             }
         } catch (SQLException e) {

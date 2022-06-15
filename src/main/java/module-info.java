@@ -7,6 +7,8 @@ module com.example.agrocalculator {
     requires org.kordamp.bootstrapfx.core;
     requires jargon2.api;
     requires java.sql;
+    requires pdfbox;
+    requires java.desktop;
 
     opens com.example.agrocalculator to javafx.fxml;
     exports com.example.agrocalculator;
