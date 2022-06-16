@@ -16,7 +16,7 @@ public class DataBaseConnection {
             " culture, productivity, area, plowingDepth, soilDensity, nitrogen, phosphorus, potassium, " +
             "nitrogenFertilizer, phosphorusFertilizer, potassiumFertilizer) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final String sqlSelectAllCalculationsOfUser = "SELECT * FROM agro_calculator.calculations WHERE userId = ";
+    private final String sqlSelectAllCalculationsOfUser = "SELECT * FROM agro_calculator.calculations WHERE userId = '";
     //Конфигурация БД
     private final String connectionUrl = "jdbc:mysql://localhost:3306/agro_calculator?serverTimezone=UTC";
     private final String username = "root";
@@ -94,11 +94,15 @@ public class DataBaseConnection {
     }
 
     //Получение расчетов по айди пользователя
-    public ArrayList<Calculation> getCalculations(int userId) {
+    public ArrayList<Calculation> getCalculations(int userId, String cultureFiler) {
+        String sql = sqlSelectAllCalculationsOfUser + userId + "'";
+        if(!cultureFiler.equals("")) {
+            sql = sql + " AND culture LIKE '%" + cultureFiler + "%'";
+        }
         ArrayList<Calculation> calculations = new ArrayList<>();
         try {
             Connection conn = DriverManager.getConnection(connectionUrl, username, password);
-            PreparedStatement ps = conn.prepareStatement(sqlSelectAllCalculationsOfUser + userId);
+            PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

@@ -56,12 +56,12 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox fx:id="previousCalculations" prefWidth="150.0" styleClass="btn, btn-default">
+            <ComboBox fx:id="previousCalculations" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
-            </ChoiceBox>
-            <TextField fx:id="filterInput" prefWidth="215.0" promptText="Отфильтровать по культуре" styleClass="btn, btn-default">
+            </ComboBox>
+            <TextField fx:id="filterInput" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Отфильтровать по культуре" styleClass="btn, btn-default">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

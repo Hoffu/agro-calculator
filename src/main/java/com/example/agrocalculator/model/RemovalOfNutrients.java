@@ -1,7 +1,9 @@
 package com.example.agrocalculator.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 //Вспомогательный класс с значениями из таблицы для вычислений
 public class RemovalOfNutrients {
@@ -55,5 +57,17 @@ public class RemovalOfNutrients {
             return listOfNutrients.get(culture)[nutrient];
         }
         return 0;
+    }
+
+    public String getCulture(double[] calcNutrients) {
+        final ArrayList<String> result = new ArrayList<>();
+        listOfNutrients.forEach((culture, nutrients) -> {
+            for(int i = 0; i < calcNutrients.length; i++) {
+                if(calcNutrients[i] - nutrients[i] < 1 || nutrients[i] - calcNutrients[i] < 1) {
+                    result.add(culture);
+                }
+            }
+        });
+        return result.get(ThreadLocalRandom.current().nextInt(0, result.size() + 1));
     }
 }

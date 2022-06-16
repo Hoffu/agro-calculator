@@ -24,7 +24,8 @@ public class ProfileController {
     public Label name;
     public Label phone;
     public Label email;
-    public ChoiceBox<String> previousCalculations;
+    public ComboBox<String> previousCalculations;
+    public TextField filterInput;
     public Label culture;
     public Label productivity;
     public Label area;
@@ -38,7 +39,6 @@ public class ProfileController {
     public Label potassiumFertilizer;
     public Button saveButton;
     public Button printButton;
-    public TextField filterInput;
 
     //Метод вызовется при рендеринге страницы
     public void initialize() {
@@ -48,7 +48,7 @@ public class ProfileController {
         name.setText(user.getName());
         phone.setText(user.getPhone());
         email.setText(user.getEmail());
-        culture.setText("Выберите дату расчета");
+        culture.setText("");
 
         //Поля вывода для расчетов собираются в массив, для удобства
         Label[] labels = {
@@ -64,26 +64,16 @@ public class ProfileController {
         changeVisibility(new Control[]{saveButton, printButton}, false);
 
         //Достаем из БД предыдущие вычисления
-        ArrayList<Calculation> calculations = dataBaseConnection.getCalculations(currentUserId);
+        ArrayList<Calculation> calculations = setChoiceBoxItems("");
         //Если лист с вычиселниями не пуст, то даем пользователю выбрать дату, иначе скрываем поля ввода и выводим
         //текст о том, что вычислений нет
         if(calculations.size() > 0) {
-            //Заполняем поле с выбором датами вычислений
-            calculations.forEach(calculation -> previousCalculations.getItems().add(calculation.getDate()));
-            //Навешиваем слушателя изменений
+            //Навешиваем слушатели изменений
             previousCalculations.getSelectionModel().selectedItemProperty()
-                    .addListener((observable, oldValue, newValue) -> {
-                        //Вызовется при изменении (пользователь выбрал дату)
-                        //Пройдет по все вычислениям, найдет с выбранной датой, и заполнит поля вывода,
-                        //а также сделает их видимыми
-                        calculations.forEach(calculation -> {
-                            if(calculation.getDate().equals(newValue)) {
-                                setValues(calculation, labels);
-                                changeVisibility(labels, true);
-                                changeVisibility(new Control[]{saveButton, printButton}, true);
-                            }
-                        });
-                    });
+                    .addListener((observable, oldValue, newValue) -> selectChangeHandler(calculations, newValue, labels));
+            filterInput.textProperty().addListener((observable, oldValue, newValue) -> {
+                setChoiceBoxItems(newValue);
+            });
         } else {
             culture.setText("Расчеты ни разу не производились.");
             changeVisibility(new Control[]{previousCalculations, filterInput}, false);
@@ -100,6 +90,32 @@ public class ProfileController {
         for (Control control : controls) {
             control.setVisible(value);
         }
+    }
+
+    //Достаем из БД предыдущие вычисления и заполняем поле с выбором датами вычислений
+    private ArrayList<Calculation> setChoiceBoxItems(String cultureFiler) {
+        ArrayList<Calculation> calculations = new DataBaseConnection().getCalculations(currentUserId, cultureFiler);
+        previousCalculations.getItems().clear();
+        previousCalculations.setPromptText("Выберите дату расчета");
+        calculations.forEach(calculation -> previousCalculations.getItems().add(calculation.getDate()));
+        return calculations;
+    }
+
+    //Вызовется при изменении (пользователь выбрал дату)
+    //Пройдет по все вычислениям, найдет с выбранной датой, и заполнит поля вывода, а также сделает их видимыми
+    //Для последних 3 значений если они не использовались, то вернется -1, тогда эти поля вывода остаются невидимыми
+    private void selectChangeHandler(ArrayList<Calculation> calculations, String newValue, Label[] labels) {
+        calculations.forEach(calculation -> {
+            if(calculation.getDate().equals(newValue)) {
+                setValues(calculation, labels);
+                changeVisibility(labels, true);
+                changeVisibility(new Control[]{saveButton, printButton}, true);
+                if (calculation.getCalculations()[calculation.getCalculations().length - 1] == -1.0) {
+                    changeVisibility(new Control[]{nitrogenFertilizer, phosphorusFertilizer,
+                            potassiumFertilizer}, false);
+                }
+            }
+        });
     }
 
     //Заполенение полей вывода значениями
