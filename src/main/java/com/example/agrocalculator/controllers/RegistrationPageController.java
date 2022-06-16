@@ -31,26 +31,32 @@ public class RegistrationPageController {
             //Выводим ошибку, если не верно заполнено
             new DialogWindow("RegistrationError").showDialog();
         } else {
-            //Иначе введеный пароль хэшируем
-            byte[] password = passwordInput.getText().getBytes();
-            Jargon2.Hasher hasher = jargon2Hasher()
-                    .type(Jargon2.Type.ARGON2d) // Data-dependent hashing
-                    .memoryCost(65536)  // 64MB memory cost
-                    .timeCost(3)        // 3 passes through memory
-                    .parallelism(4)     // use 4 lanes and 4 threads
-                    .saltLength(16)     // 16 random bytes salt
-                    .hashLength(16);    // 16 bytes output hash
+            //Проверка на существующего пользователя с таким мылом
+            String checkUser = new DataBaseConnection().userLogin(emailInput.getText());
+            if(!Objects.equals(checkUser, ""))
+                new DialogWindow("RegistrationErrorUserAlreadyExists").showDialog();
+            else {
+                //Иначе введеный пароль хэшируем
+                byte[] password = passwordInput.getText().getBytes();
+                Jargon2.Hasher hasher = jargon2Hasher()
+                        .type(Jargon2.Type.ARGON2d) // Data-dependent hashing
+                        .memoryCost(65536)  // 64MB memory cost
+                        .timeCost(3)        // 3 passes through memory
+                        .parallelism(4)     // use 4 lanes and 4 threads
+                        .saltLength(16)     // 16 random bytes salt
+                        .hashLength(16);    // 16 bytes output hash
 
-            String encodedHash = hasher.password(password).encodedHash();
-            //Создаем экземпляр класса Пользователь
-            User user = new User(emailInput.getText(), phoneInput.getText(), nameInput.getText(), encodedHash);
-            //Загружаем пользователя в БД
-            new DataBaseConnection().addUser(user);
-            //Загружаем страницу для логина
-            try {
-                setScene("loginPage.fxml");
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
+                String encodedHash = hasher.password(password).encodedHash();
+                //Создаем экземпляр класса Пользователь
+                User user = new User(emailInput.getText(), phoneInput.getText(), nameInput.getText(), encodedHash);
+                //Загружаем пользователя в БД
+                new DataBaseConnection().addUser(user);
+                //Загружаем страницу для логина
+                try {
+                    setScene("loginPage.fxml");
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
