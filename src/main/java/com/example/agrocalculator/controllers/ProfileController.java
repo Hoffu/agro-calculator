@@ -8,9 +8,12 @@ import javafx.scene.control.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import javax.print.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -169,6 +172,13 @@ public class ProfileController {
 
     //Создание пдф файла
     private String createPDF() throws IOException {
+        Label[] labels = {
+                culture, productivity, area, plowingDepth,
+                soilDensity, nitrogen, phosphorus, potassium,
+                nitrogenFertilizer, phosphorusFertilizer,
+                potassiumFertilizer
+        };
+
         //Задаем имя
         String name = "result.pdf";
         //Создаем документ
@@ -182,23 +192,21 @@ public class ProfileController {
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
         //Устанавливваем шрифт, его размер и т.д.
-        contentStream.setFont(PDType1Font.TIMES_ROMAN, 14);
+        PDFont font = PDType0Font.load(document, new File("Times New Roman.ttf"));
+        contentStream.setFont(font, 14);
         contentStream.beginText();
         contentStream.setLeading(14.5f);
 
         //Устанавливаем начало первой строки
         contentStream.newLineAtOffset(50,750);
-        String line1 = "China said its giant Sky Eye telescope may have";
-        String line2 = "picked up signs of alien civilizations, according to a report ";
-        String line3 = "by the state-backed Science and Technology Daily, which then appeared";
-        String line4 = "to have deleted the report and posts about the discovery.";
-        contentStream.showText(line1);
-        contentStream.newLine();
-        contentStream.showText(line2);
-        contentStream.newLine();
-        contentStream.showText(line3);
-        contentStream.newLine();
-        contentStream.showText(line4);
+        //Записываем на каждую строку текст с полей вывода
+        for (Label label : labels) {
+            String text = label.getText();
+            if(!text.endsWith("-1.0 кг/га")) {
+                contentStream.showText(text);
+                contentStream.newLine();
+            }
+        }
 
         //Закрываем поток
         contentStream.endText();
