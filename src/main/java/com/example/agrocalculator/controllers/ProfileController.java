@@ -155,6 +155,8 @@ public class ProfileController {
             Doc doc = new SimpleDoc(in, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
             PrintService service = PrintServiceLookup.lookupDefaultPrintService();
             service.createPrintJob().print(doc, null);
+            File file = new File(name);
+            return file.delete();
         } catch (IOException | PrintException e) {
             e.printStackTrace();
         }
