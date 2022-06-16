@@ -1,5 +1,6 @@
 package com.example.agrocalculator.model;
 
+//Вспомогательный класс с пинффой о пользователе
 public class User {
     private String email;
     private String phone;

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agrocalculator.controllers.Calculator2Controller">
+    <center>
+        <FlowPane prefHeight="325.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <VBox>
+                <HBox>
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                    <Label styleClass="strong" text="Культура">
+                        <graphic>
+                            <FontIcon iconLiteral="ci-sprout:22" />
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="15.0" />
+                        </font>
+                    </Label>
+                    <Button mnemonicParsing="false" onAction="#goToProfile" styleClass="btn, btn-default" text="Посмотреть профиль">
+                        <HBox.margin>
+                            <Insets left="257.0" />
+                        </HBox.margin>
+                    </Button>
+                </HBox>
+                <HBox>
+                    <VBox>
+                        <Label text="Засеваемая культура:">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="cultureSelector" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </ChoiceBox>
+                    </VBox>
+                    <VBox>
+                        <Label text="Планируемая урожайность, тонн с гектара">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="productivityInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <Label layoutX="20.0" layoutY="20.0" styleClass="strong" text="Почва">
+                    <graphic>
+                        <FontIcon iconLiteral="ci-soil-moisture:22" />
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox>
+                    <VBox>
+                        <Label text="Площадь участка, га">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="areaInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                    <VBox layoutX="10.0" layoutY="10.0">
+                        <Label text="Глубина вспашки, м">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="plowingDepthInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="77.0">
+                    <VBox>
+                        <Label text="Плотность почвы, кг/дм3">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="soilDensityInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <Label layoutX="20.0" layoutY="20.0" styleClass="strong" text="Химический состав">
+                    <graphic>
+                        <FontIcon iconLiteral="ci-chemistry:22" />
+                    </graphic>
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                    </VBox.margin>
+                </Label>
+                <HBox layoutX="10.0" layoutY="108.0">
+                    <VBox>
+                        <Label text="Содержание азота мг/кг">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="nitrogenInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                    <VBox layoutX="10.0" layoutY="10.0">
+                        <Label text="Содержание фосфора мг/кг">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="phosphorusInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="165.0">
+                    <VBox>
+                        <Label text="Содержание калия мг/кг">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="potassiumInput" prefWidth="250.0" styleClass="btn, btn-default">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                            </VBox.margin>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <Button mnemonicParsing="false" onAction="#calculate" styleClass="btn, btn-warning" text="Рассчитать">
+                    <graphic>
+                        <FontIcon iconLiteral="ci-agriculture-analytics:22:white" />
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                </Button>
+                <VBox fx:id="answerWrapper" styleClass="alert, alert-warning">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </VBox.margin>
+                    <Label styleClass="strong" text="Результаты расчета" />
+                    <Label fx:id="answerLabel">
+                        <VBox.margin>
+                            <Insets top="5.0" />
+                        </VBox.margin>
+                    </Label>
+                </VBox>
+            </VBox>
+        </FlowPane>
+    </center>
+    <bottom>
+        <FlowPane BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" />
+            </BorderPane.margin>
+            <Button mnemonicParsing="false" onAction="#goToOtherCalculator" styleClass="btn, btn-default" text="Калькулятор культуры">
+                <graphic>
+                    <FontIcon iconLiteral="ci-arrow-left:22" />
+                </graphic>
+            </Button>
+        </FlowPane>
+    </bottom>
+</BorderPane>

@@ -25,7 +25,7 @@ public class MainApplication extends Application {
 
     public static void setScene(String path) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(path));
-        Scene scene = new Scene(fxmlLoader.load(), 540, 615);
+        Scene scene = new Scene(fxmlLoader.load(), 540, 650);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         primaryStage.setScene(scene);
     }
