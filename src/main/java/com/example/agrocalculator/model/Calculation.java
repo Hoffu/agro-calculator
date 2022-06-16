@@ -1,5 +1,6 @@
 package com.example.agrocalculator.model;
 
+//Вспомогательный класс с расчетами
 public class Calculation {
     private final int userId;
     private final String date;

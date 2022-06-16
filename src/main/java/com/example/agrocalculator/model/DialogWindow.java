@@ -2,6 +2,7 @@ package com.example.agrocalculator.model;
 
 import javafx.scene.control.Alert;
 
+//Класс, обеспечивающий вывод ошибок
 public class DialogWindow {
     private String headerText = "";
 

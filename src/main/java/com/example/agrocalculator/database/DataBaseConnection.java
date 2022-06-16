@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DataBaseConnection {
+    //Запросы в БД
     private final String sqlSelectById = "SELECT * FROM agro_calculator.users WHERE id = ";
     private final String sqlInsertNewUser = "INSERT INTO agro_calculator.users(email, phone, name, password)" +
             " VALUES (?, ?, ?, ?)";
@@ -16,11 +17,14 @@ public class DataBaseConnection {
             "nitrogenFertilizer, phosphorusFertilizer, potassiumFertilizer) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String sqlSelectAllCalculationsOfUser = "SELECT * FROM agro_calculator.calculations WHERE userId = ";
+    //Конфигурация БД
     private final String connectionUrl = "jdbc:mysql://localhost:3306/agro_calculator?serverTimezone=UTC";
     private final String username = "root";
     private final String password = "kw2zbtiQ";
+    //Айди текущего пользователя
     public static int currentUserId = -1;
 
+    //Добавление пользователя
     public void addUser(User user) {
         try {
             Connection conn = DriverManager.getConnection(connectionUrl, username, password);
@@ -35,6 +39,7 @@ public class DataBaseConnection {
         }
     }
 
+    //Получение пользвателя по айди
     public User getUser(int id) {
         User user = new User();
         try {
@@ -53,6 +58,7 @@ public class DataBaseConnection {
         return user;
     }
 
+    //Получение хэша пароля по мылу
     public String userLogin(String email) {
         String pass = "";
         try {
@@ -70,6 +76,7 @@ public class DataBaseConnection {
         return pass;
     }
 
+    //Добавление расчетов
     public void addCalculation(Calculation calculation) {
         try {
             Connection conn = DriverManager.getConnection(connectionUrl, username, password);
@@ -86,6 +93,7 @@ public class DataBaseConnection {
         }
     }
 
+    //Получение расчетов по айди пользователя
     public ArrayList<Calculation> getCalculations(int userId) {
         ArrayList<Calculation> calculations = new ArrayList<>();
         try {

@@ -3,6 +3,7 @@ package com.example.agrocalculator.model;
 import java.util.HashMap;
 import java.util.Map;
 
+//Вспомогательный класс с значениями из таблицы для вычислений
 public class RemovalOfNutrients {
     private final Map<String, double[]> listOfNutrients = new HashMap<>();
     private final double[][] removals = {
